@@ -12,7 +12,9 @@ module.exports = function(grunt){
   grunt.config('copy', {
     main: {
         files: [
-          {expand: true, cwd:'bower_components/', src: ['**'], dest: 'lib/'}
+          {expand: true, cwd:'bower_components/jquery/dist/', src: ['**'], dest: 'lib/jquery'},
+          {expand: true, cwd:'bower_components/angular/', src: ['**'], dest: 'lib/angular'},
+          {expand: true, cwd:'bower_components/bootstrap-css/', src: ['**'], dest: 'lib/bootstrap-css'}
         ]
       }
   });
