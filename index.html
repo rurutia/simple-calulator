@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Simple calculator using AngularJS">
+  <meta name="author" content="Michael Yu">
+  <title>Angular Calculator</title>
+  <link rel="stylesheet" href="lib/bootstrap-css/css/bootstrap.css">
+  <link rel="stylesheet" href="app/style.css">
+</head>
+<body ng-app="app">
+  <header>
+    <h1>My Calculator</h1>
+  </header>
+
+  <div class="container" ng-controller="mainCtrl as vm">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <textarea class="form-control" ng-model="vm.display"></textarea>
+          </div>
+        </div>
+
+        <div class="row top-10">
+          <div class="col-lg-1" ng-repeat="number in [7, 8, 9]">
+            <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+          </div>
+          <div class="col-lg-1">
+            <operator-btn operator="÷" calculator="vm.calculator"></operator-btn>
+          </div>
+        </div>
+
+        <div class="row top-10">
+          <div class="col-lg-1" ng-repeat="number in [4, 5, 6]">
+            <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+          </div>
+          <div class="col-lg-1">
+            <operator-btn operator="×" calculator="vm.calculator"></operator-btn>
+          </div>
+        </div>
+
+        <div class="row top-10">
+          <div class="col-lg-1" ng-repeat="number in [1, 2, 3]">
+            <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+          </div>
+          <div class="col-lg-1">
+            <operator-btn operator="-" calculator="vm.calculator"></operator-btn>
+          </div>
+        </div>
+
+        <div class="row top-10">
+          <div class="col-lg-1">
+            <num-btn number="0" calculator="vm.calculator"></num-btn>
+          </div>
+          <div class="col-lg-1">
+            <decimal-btn calculator="vm.calculator"></decimal-btn>
+          </div>
+          <div class="col-lg-1">
+            <operator-btn operator="=" calculator="vm.calculator"></operator-btn>
+          </div>
+          <div class="col-lg-1">
+            <operator-btn operator="+" calculator="vm.calculator"></operator-btn>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <ul>
+        <li ng-repeat="result in vm.calculator.results">
+          {{result.expression}} = {{result.result}}
+        </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <small>Copyright &copy; 2015 Michael Yu</small>
+  </footer>
+
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="app/app.js"></script>
+
+</body>
+</html>
