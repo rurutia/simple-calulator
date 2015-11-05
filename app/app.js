@@ -79,9 +79,9 @@
 					case "=":
 						scope.btnClass.push('btn-primary');
 						scope.doOperation = function() {
-							scope.calculator.current.expression = scope.calculator.current.expression.replace('×', '*');
-							scope.calculator.current.expression = scope.calculator.current.expression.replace('÷', '/');
-							scope.calculator.current.result = eval(scope.calculator.current.expression);
+							scope.calculator.current.expression = scope.calculator.current.expression.replace(/×/g, '*');
+							scope.calculator.current.expression = scope.calculator.current.expression.replace(/÷/g, '/');
+							scope.calculator.current.result = $rootScope.$eval(scope.calculator.current.expression);
 						};
 						break;
 
