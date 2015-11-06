@@ -12,7 +12,7 @@
   },
   "scripts": {
     "prestart": "npm install",
-    "start": "node app"
+    "start": "nodejs app"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
