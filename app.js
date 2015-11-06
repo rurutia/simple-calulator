@@ -56,6 +56,6 @@ router.delete('/result', function(req, res) {
 
 
 app.use('/', router);
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Simple calculator listening on port %d", this.address().port);
 });
