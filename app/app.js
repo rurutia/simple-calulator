@@ -1,18 +1,65 @@
 (function() {
 	angular.module("app", [])
-	.controller("mainCtrl", function($scope) {
+	.factory('historyService', function($http) {
+		return {
+			getAll: _getAll,
+			save: _save,
+			deleteAll: _deleteAll
+		};
+
+		function _getAll() {
+			return $http({method: "get", url: "/result"})
+			.then(function(response) {
+				return response.data;
+			});
+		}; 
+
+		function _deleteAll() {
+			return $http({method: "delete", url: "/result"})
+			.then(function(response) {
+				return response.data;
+			});
+		}; 
+
+		function _save(result) {
+			console.log("saving result...");
+			console.log(result);
+			return $http({method: "post", url: "/result", data: result})
+			.then(function(response) {
+				return response.data;
+			});
+		}; 
+	})
+	.controller("mainCtrl", function($scope, historyService) {
 		var vm = this;
 
 		vm.calculator = {
 			isDone: false,
 			current: {
 				expression: '',
-				result: undefined
+				result: undefined,
+				date: undefined
 			},
 			results: []
 		};
 
+		vm.deleteAll = function() {
+			historyService.deleteAll().then(function(data) {
+				console.log(data);
+				if(data.success) {
+					historyService.getAll().then(function(history) {
+						vm.calculator.results = history;
+					});
+				}
+			});	
+		};
 
+		historyService.getAll().then(function(history) {
+			vm.calculator.results = history;
+			vm.calculator.results.sort(function(h1, h2) {
+				return (new Date(h2.date)).getTime() - (new Date(h1.date)).getTime();
+			});
+		});
 
 		$scope.$watch(function() {
 			return vm.calculator.current;
@@ -20,7 +67,8 @@
 			console.log(current);
 			if(current.result) {
 				vm.display = current.result;
-				vm.calculator.results.push(current);
+				vm.calculator.results.unshift(current);
+				historyService.save(current);
 			} 
 			else {
 				vm.display = current.expression;
@@ -82,6 +130,7 @@
 							scope.calculator.current.expression = scope.calculator.current.expression.replace(/×/g, '*');
 							scope.calculator.current.expression = scope.calculator.current.expression.replace(/÷/g, '/');
 							scope.calculator.current.result = $rootScope.$eval(scope.calculator.current.expression);
+							scope.calculator.current.date = new Date();
 						};
 						break;
 

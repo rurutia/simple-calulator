@@ -17,62 +17,71 @@
 
   <div class="container" ng-controller="mainCtrl as vm">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-4">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-8">
             <textarea class="form-control" ng-model="vm.display"></textarea>
           </div>
         </div>
 
         <div class="row top-10">
-          <div class="col-lg-1" ng-repeat="number in [7, 8, 9]">
+          <div class="col-lg-2" ng-repeat="number in [7, 8, 9]">
             <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
           </div>
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <operator-btn operator="÷" calculator="vm.calculator"></operator-btn>
           </div>
         </div>
 
         <div class="row top-10">
-          <div class="col-lg-1" ng-repeat="number in [4, 5, 6]">
+          <div class="col-lg-2" ng-repeat="number in [4, 5, 6]">
             <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
           </div>
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <operator-btn operator="×" calculator="vm.calculator"></operator-btn>
           </div>
         </div>
 
         <div class="row top-10">
-          <div class="col-lg-1" ng-repeat="number in [1, 2, 3]">
+          <div class="col-lg-2" ng-repeat="number in [1, 2, 3]">
             <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
           </div>
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <operator-btn operator="-" calculator="vm.calculator"></operator-btn>
           </div>
         </div>
 
         <div class="row top-10">
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <num-btn number="0" calculator="vm.calculator"></num-btn>
           </div>
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <decimal-btn calculator="vm.calculator"></decimal-btn>
           </div>
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <operator-btn operator="=" calculator="vm.calculator"></operator-btn>
           </div>
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <operator-btn operator="+" calculator="vm.calculator"></operator-btn>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <ul>
-        <li ng-repeat="result in vm.calculator.results">
-          {{result.expression}} = {{result.result}}
-        </li>
-        </ul>
+      <div class="col-lg-8">
+        <div class="row">
+          <button class="btn btn-default btn-danger" type="button" ng-click="vm.deleteAll()">delete all</a>
+        </div>
+        <div class="row">
+          <table class="table table-striped">
+            <caption>history of calculation</caption>
+            <tr><th>date</th><th>expression</th><th>result</th></tr>
+            <tr ng-repeat="result in vm.calculator.results">
+              <td>{{result.date | date:'medium'}}</td>
+              <td>{{result.expression}}</td>
+              <td>{{result.result}}</td>
+            </tr>
+          </table>
+        </div>
       </div>
 
     </div>
