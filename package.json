@@ -2,7 +2,7 @@
   "name": "calculator",
   "version": "0.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "app.js",
   "author": "Michael Yu",
   "license": "ISC",
   "devDependencies": {
@@ -11,7 +11,8 @@
   },
   "scripts": {
     "postinstall": ["bower install", "grunt build"],
-    "prestart": "npm install"
+    "prestart": "npm install",
+    "start": "node app"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
