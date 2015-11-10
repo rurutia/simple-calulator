@@ -1,6 +1,8 @@
 (function() {
-	var module = angular.module("app");
-	module.factory("Calculator", function($rootScope) {
+	var module = angular.module("app"),
+	injectParams = ["$rootScope"];
+
+	var Calculator = function($rootScope) {
 		var calculator = function() {
 			this.calculate = _calculate;
 			this.addResult = _addResult;
@@ -11,11 +13,11 @@
 			this.setResults = _setResults;
 
 			var _results = [],
-				_currentResult = {
-					expression: '',
-					result: undefined,
-					date: undefined
-				};
+			_currentResult = {
+				expression: '',
+				result: undefined,
+				date: undefined
+			};
 
 			function _calculate() {
 				_currentResult.expression = _currentResult.expression.replace(/×/g, '*');
@@ -56,5 +58,8 @@
 		};
 
 		return calculator;
-	})
+	};
+
+	Calculator.$inject = injectParams;
+	module.factory("Calculator", Calculator);
 })();
