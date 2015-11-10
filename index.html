@@ -109,7 +109,7 @@
                           <table class="table table-striped">
                             <caption>history of calculation</caption>
                             <tr><th>date</th><th>expression</th><th>result</th></tr>
-                            <tr ng-repeat="result in vm.calculator.results">
+                            <tr ng-repeat="result in vm.calculator.getResults()">
                               <td>{{result.date | date:'medium'}}</td>
                               <td>{{result.expression}}</td>
                               <td>{{result.result}}</td>
@@ -142,6 +142,7 @@
   <script src="lib/jquery/jquery.js"></script>
   <script src="lib/angular/angular.js"></script>
   <script src="app/app.js"></script>
+  <script src="app/service/calculator.js"></script>
 
 </body>
 </html>

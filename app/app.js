@@ -30,44 +30,36 @@
 			});
 		}; 
 	})
-	.controller("mainCtrl", function($scope, historyService) {
+
+	.controller("mainCtrl", function($scope, Calculator, historyService) {
 		var vm = this;
 
-		vm.calculator = {
-			isDone: false,
-			current: {
-				expression: '',
-				result: undefined,
-				date: undefined
-			},
-			results: []
-		};
+		vm.calculator = new Calculator();
 
 		vm.deleteAll = function() {
 			historyService.deleteAll().then(function(data) {
 				console.log(data);
 				if(data.success) {
-					historyService.getAll().then(function(history) {
-						vm.calculator.results = history;
-					});
+					vm.calculator.deleteAllResults();
 				}
 			});	
 		};
 
 		historyService.getAll().then(function(history) {
-			vm.calculator.results = history;
-			vm.calculator.results.sort(function(h1, h2) {
+			history.sort(function(h1, h2) {
 				return (new Date(h2.date)).getTime() - (new Date(h1.date)).getTime();
 			});
+
+			vm.calculator.setResults(history);
 		});
 
 		$scope.$watch(function() {
-			return vm.calculator.current;
+			return vm.calculator.getCurrentResult();
 		}, function(current) {
 			console.log(current);
 			if(current.result) {
 				vm.display = current.result;
-				vm.calculator.results.unshift(current);
+				vm.calculator.addResult(current);
 				historyService.save(current);
 			} 
 			else {
@@ -86,13 +78,7 @@
 			},
 			link: function(scope, elem, attrs) {
 				scope.selectNumber = function() {
-					if(scope.calculator.current.result) {
-						scope.calculator.current = {
-							expression: '',
-							result: undefined
-						};
-					}
-					scope.calculator.current.expression += scope.number;
+					scope.calculator.appendExpression(scope.number);
 				};
 			}
 		};
@@ -106,7 +92,7 @@
 			},
 			link: function(scope, elem, attrs) {
 				scope.selectDecimal = function() {
-					scope.calculator.current.expression += ".";
+					scope.calculator.appendExpression(".");
 				};
 			}
 		};
@@ -127,29 +113,19 @@
 					case "=":
 						scope.btnClass.push('btn-primary');
 						scope.doOperation = function() {
-							scope.calculator.current.expression = scope.calculator.current.expression.replace(/×/g, '*');
-							scope.calculator.current.expression = scope.calculator.current.expression.replace(/÷/g, '/');
-							scope.calculator.current.result = $rootScope.$eval(scope.calculator.current.expression);
-							scope.calculator.current.date = new Date();
+							scope.calculator.calculate();
 						};
 						break;
 
 					default:
 						scope.btnClass.push('btn-success');
 						scope.doOperation = function() {
-							scope.calculator.current.expression += scope.operator;
+							scope.calculator.appendExpression(scope.operator);
 						}
 						break;
 				}
 			}
 		};
-	})
-	.factory('resultService', function() {
-		var service = function() {
-			this.isDone = false;
-			this.results = [];
-		}
-		return service;
 	})
 	;
 })();
