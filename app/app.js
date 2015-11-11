@@ -31,10 +31,29 @@
 		}; 
 	})
 
-	.controller("mainCtrl", function($scope, Calculator, historyService) {
+	.controller("mainCtrl", function($scope, $document, Calculator, historyService) {
 		var vm = this;
-
+		
 		vm.calculator = new Calculator();
+
+		$document.keydown(function(e) {
+			if(e.keyCode === 8) {
+				vm.calculator.deleteLastChar();
+				$scope.$apply();
+				e.preventDefault();
+			}
+		});
+
+		$document.keypress(function(e) {
+			if(e.keyCode === 13) {
+				vm.calculator.calculate();
+			}
+			else {
+				var charCode = String.fromCharCode(e.keyCode);
+				vm.calculator.appendExpression(charCode);
+			}
+			$scope.$apply();
+		});
 
 		vm.deleteAll = function() {
 			historyService.deleteAll().then(function(data) {

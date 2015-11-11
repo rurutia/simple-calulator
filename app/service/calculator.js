@@ -8,6 +8,7 @@
 			this.addResult = _addResult;
 			this.getCurrentResult = _getCurrentResult;
 			this.appendExpression = _appendExpression;
+			this.deleteLastChar = _deleteLastChar;
 			this.deleteAllResults = _deleteAllResults;
 			this.getResults = _getResults;
 			this.setResults = _setResults;
@@ -17,6 +18,11 @@
 				_currentResult = {
 					expression: ''
 				};
+
+
+			function _deleteLastChar() {
+				_currentResult.expression = _currentResult.expression.substr(0, _currentResult.expression.length - 1);
+			}
 
 			function _resetCurrentResult() {
 				_currentResult = {
