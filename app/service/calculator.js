@@ -11,12 +11,17 @@
 			this.deleteAllResults = _deleteAllResults;
 			this.getResults = _getResults;
 			this.setResults = _setResults;
+			this.resetCurrentResult = _resetCurrentResult;
 
 			var _results = [],
-			_currentResult = {
-				expression: '',
-				result: undefined,
-				date: undefined
+				_currentResult = {
+					expression: ''
+				};
+
+			function _resetCurrentResult() {
+				_currentResult = {
+					expression: '',
+				};
 			};
 
 			function _calculate() {
@@ -32,10 +37,7 @@
 
 			function _appendExpression(expression) {
 				if(_currentResult.result) {
-					_currentResult = {
-						expression: '',
-						result: undefined
-					};
+					_resetCurrentResult();
 				}
 				_currentResult.expression += expression;
 			};

@@ -38,7 +38,6 @@
 
 		vm.deleteAll = function() {
 			historyService.deleteAll().then(function(data) {
-				console.log(data);
 				if(data.success) {
 					vm.calculator.deleteAllResults();
 				}
@@ -46,18 +45,18 @@
 		};
 
 		historyService.getAll().then(function(history) {
-			history.sort(function(h1, h2) {
-				return (new Date(h2.date)).getTime() - (new Date(h1.date)).getTime();
-			});
-
-			vm.calculator.setResults(history);
+			if(Object.prototype.toString.call(history) === "[object Array]") {
+				history.sort(function(h1, h2) {
+					return (new Date(h2.date)).getTime() - (new Date(h1.date)).getTime();
+				});
+				vm.calculator.setResults(history);
+			}
 		});
 
 		$scope.$watch(function() {
 			return vm.calculator.getCurrentResult();
 		}, function(current) {
-			console.log(current);
-			if(current.result) {
+			if(typeof current.result !== 'undefined') {
 				vm.display = current.result;
 				vm.calculator.addResult(current);
 				historyService.save(current);
@@ -71,7 +70,7 @@
 	.directive("numBtn", function() {
 		return {
 			restriction: "E",
-			template: '<button ng-click="selectNumber()" type="button" class="btn btn-default">{{number}}</button>',
+			template: '<button ng-click="selectNumber()" type="button" class="btn btn-default btn-block">{{number}}</button>',
 			scope: {
 				number: '@',
 				calculator: '='
@@ -86,7 +85,7 @@
 	.directive("decimalBtn", function() {
 		return {
 			restriction: "E",
-			template: '<button ng-click="selectDecimal()" type="button" class="btn btn-default">.</button>',
+			template: '<button ng-click="selectDecimal()" type="button" class="btn btn-default btn-block">.</button>',
 			scope: {
 				calculator: '='
 			},
@@ -108,12 +107,20 @@
 			link: function(scope, elem, attrs) {
 				scope.btnClass = [];
 				scope.btnClass.push('btn');
+				scope.btnClass.push('btn-block');
 
 				switch(scope.operator) {
 					case "=":
 						scope.btnClass.push('btn-primary');
 						scope.doOperation = function() {
 							scope.calculator.calculate();
+						};
+						break;
+
+					case "AC":
+						scope.btnClass.push('btn-primary');
+						scope.doOperation = function() {
+							scope.calculator.resetCurrentResult();
 						};
 						break;
 
