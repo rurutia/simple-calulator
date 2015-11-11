@@ -63,7 +63,7 @@
 
                       <div class="row top-10">
                         <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in ['(', ')', '%']">
-                          <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                           <operator-btn operator="AC" calculator="vm.calculator"></operator-btn>
@@ -72,7 +72,7 @@
 
                       <div class="row top-10">
                         <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in [7, 8, 9]">
-                          <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                           <operator-btn operator="÷" calculator="vm.calculator"></operator-btn>
@@ -81,7 +81,7 @@
 
                       <div class="row top-10">
                         <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in [4, 5, 6]">
-                          <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                           <operator-btn operator="×" calculator="vm.calculator"></operator-btn>
@@ -90,7 +90,7 @@
 
                       <div class="row top-10">
                         <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in [1, 2, 3]">
-                          <num-btn number="{{number}}" calculator="vm.calculator"></num-btn>
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                           <operator-btn operator="-" calculator="vm.calculator"></operator-btn>
@@ -99,10 +99,10 @@
 
                       <div class="row top-10">
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                          <num-btn number="0" calculator="vm.calculator"></num-btn>
+                          <input-btn input="0" calculator="vm.calculator"></input-btn>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
-                          <decimal-btn calculator="vm.calculator"></decimal-btn>
+                          <input-btn input="." calculator="vm.calculator"></input-btn>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                           <operator-btn operator="=" calculator="vm.calculator"></operator-btn>

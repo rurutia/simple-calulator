@@ -67,31 +67,17 @@
 		}, true);
 		
 	})
-	.directive("numBtn", function() {
+	.directive("inputBtn", function() {
 		return {
 			restriction: "E",
-			template: '<button ng-click="selectNumber()" type="button" class="btn btn-default btn-block">{{number}}</button>',
+			template: '<button ng-click="selectInput()" type="button" class="btn btn-default btn-block">{{input}}</button>',
 			scope: {
-				number: '@',
+				input: '@',
 				calculator: '='
 			},
 			link: function(scope, elem, attrs) {
-				scope.selectNumber = function() {
-					scope.calculator.appendExpression(scope.number);
-				};
-			}
-		};
-	})
-	.directive("decimalBtn", function() {
-		return {
-			restriction: "E",
-			template: '<button ng-click="selectDecimal()" type="button" class="btn btn-default btn-block">.</button>',
-			scope: {
-				calculator: '='
-			},
-			link: function(scope, elem, attrs) {
-				scope.selectDecimal = function() {
-					scope.calculator.appendExpression(".");
+				scope.selectInput = function() {
+					scope.calculator.appendExpression(scope.input);
 				};
 			}
 		};
