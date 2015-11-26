@@ -9,13 +9,18 @@
     "express": "^4.13.3"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
     "bower": "^1.6.5",
-    "grunt-contrib-copy": "^0.8.2"
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.2",
+    "mocha": "^2.3.1",
+    "nodemon": "^1.8.1"
   },
   "scripts": {
     "postinstall": "bower install;grunt build",
     "prestart": "npm install",
-    "start": "node app"
+    "start": "node app",
+    "test": "mocha test"
   }
 }
