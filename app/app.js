@@ -30,7 +30,30 @@
 			});
 		}; 
 	})
+	.value('AppNameValue', 'Simple Calculator')
+	.service('appNameService', function(AppNameValue) {
+		this.name = AppNameValue + 'from service';
+	})
+	.factory('appNameFactory', function(AppNameValue) {
+		//var service = function() {
+		//	this.name = AppNameValue + 'from service';
+		//};
 
+
+		//return service;
+		//
+		//return new sevice();
+
+
+		return {
+			name: AppNameValue + 'from factory'
+		};
+	})
+	.controller("headerCtrl", function(appNameService, appNameFactory) {
+		var vm = this;
+
+		vm.appName = appNameFactory.name;
+	})
 	.controller("mainCtrl", function($scope, $document, Calculator, historyService) {
 		var vm = this;
 		
