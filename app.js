@@ -3,6 +3,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({name: "calculator"});
+
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -58,7 +61,7 @@ router.delete('/result', function(req, res) {
 
 app.use('/', router);
 app.listen(process.env.PORT || 3000, function () {
-    console.log("Simple calculator listening on port %d", this.address().port);
+    log.info("Simple calculator listening on port %d", this.address().port);
 });
 
 module.exports = app;
